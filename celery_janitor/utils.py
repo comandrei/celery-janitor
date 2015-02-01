@@ -1,5 +1,8 @@
 import importlib
-import urlparse
+try:
+    from urlparse import urlparse
+except ImportError:  # Python 3.x
+    from urllib.parse import urlparse
 
 from celery_janitor import conf
 from celery_janitor.exceptions import BackendNotSupportedException
@@ -25,7 +28,7 @@ def import_class(path):
 class Config(object):
 
     def __init__(self):
-        self.broker = urlparse.urlparse(conf.BROKER_URL)
+        self.broker = urlparse(conf.BROKER_URL)
 
     def get_backend_class(self):
         try:
