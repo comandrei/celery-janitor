@@ -4,8 +4,11 @@ env:
   - TOX_ENV=py33
   - TOX_ENV=py27
   - TOX_ENV=flake8
+  - TOX_ENV=coverage
 install:
   - pip install tox coveralls
+  - if [ "x$TOX_ENV" = 'coverage' ]; then pip install coveralls --use-mirrors; fi
 script:
   - tox -e $TOX_ENV
-after_success: coveralls
+after_success:
+  - if [ "x$TOX_ENV" = 'coverage' ]; then coveralls; fi
