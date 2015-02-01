@@ -28,6 +28,3 @@ class SQSBackend(BrokerBackend):
 
     def _get_queues(self, prefix=None):
         return self.connection.get_all_queues(prefix)
-
-    def delete_queue(self, queue):
-        return self.connection.delete_queue(queue)
